@@ -6,8 +6,8 @@ import prettierPluginEstree from 'prettier/plugins/estree';
 import prettierPluginHtml from 'prettier/plugins/html';
 import { format } from 'prettier/standalone';
 
-/*#__PURE__*/ hljs.registerLanguage('json', jsonHighlighter);
-/*#__PURE__*/ hljs.registerLanguage('html', xmlHighlighter);
+hljs.registerLanguage('json', jsonHighlighter);
+hljs.registerLanguage('html', xmlHighlighter);
 
 export async function html(value: string): Promise<string> {
   const prettyValue = await format(value, {
