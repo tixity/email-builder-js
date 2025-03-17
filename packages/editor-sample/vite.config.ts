@@ -4,7 +4,6 @@ import react from '@vitejs/plugin-react-swc';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/email-builder-js/',
   build: {
     lib: {
       entry: 'src/main.tsx', // Your entry file
@@ -20,6 +19,11 @@ export default defineConfig({
       //     'react-dom': 'ReactDOM',
       //   },
       // },
+      treeshake: {
+        // moduleSideEffects: (id, _external) => {
+        //   return !id.includes('/editor-sample/');
+        // },
+      },
     },
   },
 });

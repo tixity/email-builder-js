@@ -16,7 +16,9 @@ import ToggleInspectorPanelButton from '../InspectorDrawer/ToggleInspectorPanelB
 
 import { Config } from '../../main';
 import DownloadJson from './DownloadJson';
+import HtmlPanel from './HtmlPanel';
 import ImportJson from './ImportJson';
+import JsonPanel from './JsonPanel';
 
 export default function TemplatePanel({ config }: { config: Config }) {
   const document = useDocument();
@@ -74,6 +76,10 @@ export default function TemplatePanel({ config }: { config: Config }) {
             <Reader document={document} rootBlockId="root" />
           </Box>
         );
+      // case 'html':
+      //   return import.meta.env.DEV ? <HtmlPanel /> : null;
+      // case 'json':
+      //   return import.meta.env.DEV ? <JsonPanel /> : null;
     }
   };
 
