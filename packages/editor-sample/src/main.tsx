@@ -11,6 +11,7 @@ export interface Config {
   config?: TEditorConfiguration;
   name: string;
   id: string;
+  onSave: (config: { name: string; id: string; config: TEditorConfiguration }) => Promise<void> | void;
 }
 
 export const mountEmailBuilder = (element: Container, config: Config) => {
@@ -26,5 +27,16 @@ export const mountEmailBuilder = (element: Container, config: Config) => {
 };
 
 if (import.meta.env.DEV) {
-  mountEmailBuilder(document.getElementById('root')!, { name: 'New Email', id: 'aksjdh' });
+  mountEmailBuilder(document.getElementById('root')!, {
+    name: 'New Email',
+    id: 'aksjdh',
+    onSave: (config) => {
+      console.log(config);
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      });
+    },
+  });
 }

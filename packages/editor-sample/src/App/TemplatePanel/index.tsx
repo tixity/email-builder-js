@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { MonitorOutlined, PhoneIphoneOutlined } from '@mui/icons-material';
-import { Box, Stack, SxProps, TextField, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
+import { EditOutlined, MonitorOutlined, PhoneIphoneOutlined, PreviewOutlined, SaveOutlined } from '@mui/icons-material';
+import { Box, IconButton, Stack, SxProps, TextField, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
 import { Reader } from '@usewaypoint/email-builder';
 
 import EditorBlock from '../../documents/editor/EditorBlock';
 import {
+  setSelectedMainTab,
   setSelectedScreenSize,
   useDocument,
   useSelectedMainTab,
@@ -16,13 +17,12 @@ import ToggleInspectorPanelButton from '../InspectorDrawer/ToggleInspectorPanelB
 import { Config } from '../../main';
 import DownloadJson from './DownloadJson';
 import ImportJson from './ImportJson';
-import MainTabsGroup from './MainTabsGroup';
-import ShareButton from './ShareButton';
 
 export default function TemplatePanel({ config }: { config: Config }) {
   const document = useDocument();
   const selectedMainTab = useSelectedMainTab();
   const selectedScreenSize = useSelectedScreenSize();
+  const [name, setName] = React.useState(config.name);
 
   let mainBoxSx: SxProps = {
     height: '100%',
@@ -49,6 +49,17 @@ export default function TemplatePanel({ config }: { config: Config }) {
     }
   };
 
+  const handleMainTabChange = (_: unknown, value: unknown) => {
+    switch (value) {
+      case 'preview':
+      case 'editor':
+        setSelectedMainTab(value);
+        return;
+      default:
+        setSelectedMainTab('editor');
+    }
+  };
+
   const renderMainPanel = () => {
     switch (selectedMainTab) {
       case 'editor':
@@ -63,10 +74,24 @@ export default function TemplatePanel({ config }: { config: Config }) {
             <Reader document={document} rootBlockId="root" />
           </Box>
         );
-      // case 'html':
-      //   return <HtmlPanel />;
-      // case 'json':
-      //   return <JsonPanel />;
+    }
+  };
+
+  const [saving, setSaving] = React.useState(false);
+  const [saveError, setSaveError] = React.useState<string | null>();
+  const [savedRecently, setSavedRecently] = React.useState(false);
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      await config.onSave({ name, id: config.id, config: document });
+      setSavedRecently(true);
+      setSaveError(null);
+      setTimeout(() => setSavedRecently(false), 2000);
+    } catch (e) {
+      setSaveError('Failed to save');
+      console.log(e);
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -87,21 +112,47 @@ export default function TemplatePanel({ config }: { config: Config }) {
         justifyContent="space-between"
         alignItems="center"
       >
-        {/* <ToggleSamplesPanelButton /> */}
         <Stack direction="row" spacing={2} alignItems={'center'} sx={{ whiteSpace: 'nowrap' }}>
-          {/* <input value={config.name} onInput={(e) => (config.name = e.currentTarget.value)} className="h-full" /> */}
           <TextField
-            value={config.name}
-            onChange={(e) => (config.name = e.currentTarget.value)}
+            value={name}
+            onChange={(e) => setName(e.currentTarget.value)}
             variant="outlined"
             inputProps={{ style: { paddingBlock: 4, fontSize: 16 } }}
           />
         </Stack>
         <Stack px={2} direction="row" gap={2} width="100%" justifyContent="space-between" alignItems="center">
-          <Stack direction="row" spacing={2}>
-            <MainTabsGroup />
+          <Stack direction="row">
+            <Tooltip title="Save">
+              <IconButton onClick={handleSave}>
+                <SaveOutlined />
+              </IconButton>
+            </Tooltip>
+            {saveError && (
+              <Stack direction="row" alignItems="center" style={{ color: 'red' }}>
+                {saveError}
+              </Stack>
+            )}
+            <Stack
+              direction="row"
+              alignItems="center"
+              style={{ opacity: savedRecently || saving ? 1 : 0, transition: 'opacity 0.5s ease-in-out' }}
+            >
+              {saving ? 'Saving...' : 'Saved'}
+            </Stack>
           </Stack>
           <Stack direction="row" spacing={2}>
+            <ToggleButtonGroup value={selectedMainTab} exclusive size="small" onChange={handleMainTabChange}>
+              <ToggleButton value="editor">
+                <Tooltip title="Edit">
+                  <EditOutlined fontSize="small" />
+                </Tooltip>
+              </ToggleButton>
+              <ToggleButton value="preview">
+                <Tooltip title="Preview">
+                  <PreviewOutlined fontSize="small" />
+                </Tooltip>
+              </ToggleButton>
+            </ToggleButtonGroup>
             <DownloadJson />
             <ImportJson />
             <ToggleButtonGroup value={selectedScreenSize} exclusive size="small" onChange={handleScreenSizeChange}>
@@ -116,7 +167,7 @@ export default function TemplatePanel({ config }: { config: Config }) {
                 </Tooltip>
               </ToggleButton>
             </ToggleButtonGroup>
-            <ShareButton />
+            {/* <ShareButton /> */}
           </Stack>
         </Stack>
         <ToggleInspectorPanelButton />
