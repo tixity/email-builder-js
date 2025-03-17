@@ -3,14 +3,20 @@ import React from 'react';
 import { Button } from '@mui/material';
 
 import { resetDocument } from '../../documents/editor/EditorContext';
-import getConfiguration from '../../getConfiguration';
+import type { TEditorConfiguration } from '../../documents/editor/core';
 
-export default function SidebarButton({ href, children }: { href: string; children: JSX.Element | string }) {
+export default function SidebarButton({
+  config,
+  children,
+}: {
+  config: TEditorConfiguration;
+  children: JSX.Element | string;
+}) {
   const handleClick = () => {
-    resetDocument(getConfiguration(href));
+    resetDocument(config);
   };
   return (
-    <Button size="small" href={href} onClick={handleClick}>
+    <Button size="small" onClick={handleClick}>
       {children}
     </Button>
   );

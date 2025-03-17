@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { MonitorOutlined, PhoneIphoneOutlined } from '@mui/icons-material';
-import { Box, Stack, SxProps, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
+import { Box, Stack, SxProps, TextField, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
 import { Reader } from '@usewaypoint/email-builder';
 
 import EditorBlock from '../../documents/editor/EditorBlock';
@@ -12,16 +12,14 @@ import {
   useSelectedScreenSize,
 } from '../../documents/editor/EditorContext';
 import ToggleInspectorPanelButton from '../InspectorDrawer/ToggleInspectorPanelButton';
-import ToggleSamplesPanelButton from '../SamplesDrawer/ToggleSamplesPanelButton';
 
+import { Config } from '../../main';
 import DownloadJson from './DownloadJson';
-import HtmlPanel from './HtmlPanel';
 import ImportJson from './ImportJson';
-import JsonPanel from './JsonPanel';
 import MainTabsGroup from './MainTabsGroup';
 import ShareButton from './ShareButton';
 
-export default function TemplatePanel() {
+export default function TemplatePanel({ config }: { config: Config }) {
   const document = useDocument();
   const selectedMainTab = useSelectedMainTab();
   const selectedScreenSize = useSelectedScreenSize();
@@ -65,10 +63,10 @@ export default function TemplatePanel() {
             <Reader document={document} rootBlockId="root" />
           </Box>
         );
-      case 'html':
-        return <HtmlPanel />;
-      case 'json':
-        return <JsonPanel />;
+      // case 'html':
+      //   return <HtmlPanel />;
+      // case 'json':
+      //   return <JsonPanel />;
     }
   };
 
@@ -89,7 +87,16 @@ export default function TemplatePanel() {
         justifyContent="space-between"
         alignItems="center"
       >
-        <ToggleSamplesPanelButton />
+        {/* <ToggleSamplesPanelButton /> */}
+        <Stack direction="row" spacing={2} alignItems={'center'} sx={{ whiteSpace: 'nowrap' }}>
+          {/* <input value={config.name} onInput={(e) => (config.name = e.currentTarget.value)} className="h-full" /> */}
+          <TextField
+            value={config.name}
+            onChange={(e) => (config.name = e.currentTarget.value)}
+            variant="outlined"
+            inputProps={{ style: { paddingBlock: 4, fontSize: 16 } }}
+          />
+        </Stack>
         <Stack px={2} direction="row" gap={2} width="100%" justifyContent="space-between" alignItems="center">
           <Stack direction="row" spacing={2}>
             <MainTabsGroup />

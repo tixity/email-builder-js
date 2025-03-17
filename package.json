@@ -9,7 +9,9 @@
   ],
   "scripts": {
     "build": "npx tsc",
-    "test": "npx jest"
+    "test": "npx jest",
+    "dev": "cd packages/editor-sample && npm run dev",
+    "build:editor": "cd packages/editor-sample && npm run build"
   },
   "author": "carlos@usewaypoint.com",
   "license": "MIT",
