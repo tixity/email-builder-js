@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EditOutlined, PreviewOutlined } from '@mui/icons-material';
+import { CodeOutlined, DataObjectOutlined, EditOutlined, PreviewOutlined } from '@mui/icons-material';
 import { Tab, Tabs, Tooltip } from '@mui/material';
 
 import { setSelectedMainTab, useSelectedMainTab } from '../../documents/editor/EditorContext';
@@ -9,10 +9,10 @@ export default function MainTabsGroup() {
   const selectedMainTab = useSelectedMainTab();
   const handleChange = (_: unknown, v: unknown) => {
     switch (v) {
-      // case 'json':
+      case 'json':
       case 'preview':
       case 'editor':
-        // case 'html':
+      case 'html':
         setSelectedMainTab(v);
         return;
       default:
@@ -38,22 +38,27 @@ export default function MainTabsGroup() {
           </Tooltip>
         }
       />
-      {/* <Tab
-        value="html"
-        label={
-          <Tooltip title="HTML output">
-            <CodeOutlined fontSize="small" />
-          </Tooltip>
-        }
-      />
-      <Tab
-        value="json"
-        label={
-          <Tooltip title="JSON output">
-            <DataObjectOutlined fontSize="small" />
-          </Tooltip>
-        }
-      /> */}
+
+      {import.meta.env.DEV && (
+        <Tab
+          value="html"
+          label={
+            <Tooltip title="HTML output">
+              <CodeOutlined fontSize="small" />
+            </Tooltip>
+          }
+        />
+      )}
+      {import.meta.env.DEV && (
+        <Tab
+          value="json"
+          label={
+            <Tooltip title="JSON output">
+              <DataObjectOutlined fontSize="small" />
+            </Tooltip>
+          }
+        />
+      )}
     </Tabs>
   );
 }
