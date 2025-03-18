@@ -4,11 +4,15 @@ import react from '@vitejs/plugin-react-swc';
 
 export default defineConfig({
   plugins: [react()],
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'),
+  },
   build: {
     lib: {
-      entry: 'src/main.tsx', // Your entry file
-      name: 'EmailTemplateBuilder', // Global variable name for the outer app
-      fileName: (format) => `my-react-app.${format}.js`,
+      entry: 'src/main.tsx',
+      name: 'EmailTemplateBuilder',
+      fileName: (format) => `email-template-builder.${format}.js`,
+      formats: ['umd'],
     },
     rollupOptions: {
       // only externalize if we ever have other micro frontends
@@ -20,9 +24,9 @@ export default defineConfig({
       //   },
       // },
       treeshake: {
-        // moduleSideEffects: (id, _external) => {
-        //   return !id.includes('/editor-sample/');
-        // },
+        moduleSideEffects: (id, _external) => {
+          return !id.includes('/editor-sample/src/App/TemplatePanel/');
+        },
       },
     },
   },

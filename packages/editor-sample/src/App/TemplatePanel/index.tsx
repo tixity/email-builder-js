@@ -1,6 +1,14 @@
 import React from 'react';
 
-import { EditOutlined, MonitorOutlined, PhoneIphoneOutlined, PreviewOutlined, SaveOutlined } from '@mui/icons-material';
+import {
+  CodeOutlined,
+  DataObjectOutlined,
+  EditOutlined,
+  MonitorOutlined,
+  PhoneIphoneOutlined,
+  PreviewOutlined,
+  SaveOutlined,
+} from '@mui/icons-material';
 import { Box, IconButton, Stack, SxProps, TextField, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
 import { Reader } from '@usewaypoint/email-builder';
 
@@ -55,6 +63,8 @@ export default function TemplatePanel({ config }: { config: Config }) {
     switch (value) {
       case 'preview':
       case 'editor':
+      case 'json':
+      case 'html':
         setSelectedMainTab(value);
         return;
       default:
@@ -76,10 +86,10 @@ export default function TemplatePanel({ config }: { config: Config }) {
             <Reader document={document} rootBlockId="root" />
           </Box>
         );
-      // case 'html':
-      //   return import.meta.env.DEV ? <HtmlPanel /> : null;
-      // case 'json':
-      //   return import.meta.env.DEV ? <JsonPanel /> : null;
+      case 'html':
+        return import.meta.env.DEV ? <HtmlPanel /> : null;
+      case 'json':
+        return import.meta.env.DEV ? <JsonPanel /> : null;
     }
   };
 
@@ -158,6 +168,20 @@ export default function TemplatePanel({ config }: { config: Config }) {
                   <PreviewOutlined fontSize="small" />
                 </Tooltip>
               </ToggleButton>
+              {import.meta.env.DEV && (
+                <ToggleButton value="html">
+                  <Tooltip title="HTML output">
+                    <CodeOutlined fontSize="small" />
+                  </Tooltip>
+                </ToggleButton>
+              )}
+              {import.meta.env.DEV && (
+                <ToggleButton value="json">
+                  <Tooltip title="JSON output">
+                    <DataObjectOutlined fontSize="small" />
+                  </Tooltip>
+                </ToggleButton>
+              )}
             </ToggleButtonGroup>
             <DownloadJson />
             <ImportJson />

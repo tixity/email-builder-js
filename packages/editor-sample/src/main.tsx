@@ -14,7 +14,7 @@ export interface Config {
   onSave: (config: { name: string; id: string; config: TEditorConfiguration }) => Promise<void> | void;
 }
 
-export const mountEmailBuilder = (element: Container, config: Config) => {
+export const init = (element: Container, config: Config) => {
   ReactDOM.createRoot(element).render(
     <React.StrictMode>
       <ThemeProvider theme={theme}>
@@ -27,7 +27,7 @@ export const mountEmailBuilder = (element: Container, config: Config) => {
 };
 
 if (import.meta.env.DEV) {
-  mountEmailBuilder(document.getElementById('root')!, {
+  init(document.getElementById('root')!, {
     name: 'New Email',
     id: 'aksjdh',
     onSave: (config) => {
