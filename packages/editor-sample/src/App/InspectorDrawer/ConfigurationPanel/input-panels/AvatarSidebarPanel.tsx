@@ -32,7 +32,7 @@ export default function AvatarSidebarPanel({ data, setData }: AvatarSidebarPanel
   const shape = data.props?.shape ?? AvatarPropsDefaults.shape;
 
   return (
-    <BaseSidebarPanel title="Avatar block">
+    <BaseSidebarPanel title="Avatar block" showVars>
       <SliderInput
         label="Size"
         iconLabel={<AspectRatioOutlined sx={{ color: 'text.secondary' }} />}

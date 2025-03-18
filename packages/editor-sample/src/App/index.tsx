@@ -28,17 +28,18 @@ export default function App({ config }: { config: Config }) {
   }, [config.config]);
 
   return (
-    <>
+    <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative' }}>
       <InspectorDrawer />
 
       <Stack
         sx={{
           marginRight: inspectorDrawerOpen ? `${INSPECTOR_DRAWER_WIDTH}px` : 0,
           transition: marginRightTransition,
+          height: '100%',
         }}
       >
         <TemplatePanel config={config} />
       </Stack>
-    </>
+    </div>
   );
 }

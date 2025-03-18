@@ -26,7 +26,7 @@ export default function HeadingSidebarPanel({ data, setData }: HeadingSidebarPan
   };
 
   return (
-    <BaseSidebarPanel title="Heading block">
+    <BaseSidebarPanel title="Heading block" showVars>
       <TextInput
         label="Content"
         rows={3}

@@ -32,7 +32,7 @@ export default function ImageSidebarPanel({ data, setData }: ImageSidebarPanelPr
   };
 
   return (
-    <BaseSidebarPanel title="Image block">
+    <BaseSidebarPanel title="Image block" showVars>
       <TextInput
         label="Source URL"
         defaultValue={data.props?.url ?? ''}

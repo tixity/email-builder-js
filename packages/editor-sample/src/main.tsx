@@ -6,22 +6,26 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import App from './App';
 import theme from './theme';
 import { type TEditorConfiguration } from './documents/editor/core';
+import { VarProvider } from './App/useVarContext';
 
 export interface Config {
   config?: TEditorConfiguration;
   name: string;
   id: string;
   onSave: (config: { name: string; id: string; config: TEditorConfiguration }) => Promise<void> | void;
+  vars?: Record<string, string[]>;
 }
 
 export const init = (element: Container, config: Config) => {
   ReactDOM.createRoot(element).render(
     <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        <CssBaseline>
-          <App config={config} />
-        </CssBaseline>
-      </ThemeProvider>
+      <VarProvider value={config.vars}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline>
+            <App config={config} />
+          </CssBaseline>
+        </ThemeProvider>
+      </VarProvider>
     </React.StrictMode>
   );
 };
@@ -37,6 +41,10 @@ if (import.meta.env.DEV) {
           resolve();
         }, 1000);
       });
+    },
+    vars: {
+      User: ['user_id', 'user_name', 'email'],
+      Date: ['today', 'now', 'tomorrow'],
     },
   });
 }

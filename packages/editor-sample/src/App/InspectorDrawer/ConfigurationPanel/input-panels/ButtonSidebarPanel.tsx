@@ -35,7 +35,7 @@ export default function ButtonSidebarPanel({ data, setData }: ButtonSidebarPanel
   const buttonBackgroundColor = data.props?.buttonBackgroundColor ?? ButtonPropsDefaults.buttonBackgroundColor;
 
   return (
-    <BaseSidebarPanel title="Button block">
+    <BaseSidebarPanel title="Button block" showVars>
       <TextInput
         label="Text"
         defaultValue={text}

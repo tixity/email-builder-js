@@ -25,7 +25,7 @@ export default function TextSidebarPanel({ data, setData }: TextSidebarPanelProp
   };
 
   return (
-    <BaseSidebarPanel title="Text block">
+    <BaseSidebarPanel title="Text block" showVars>
       <TextInput
         label="Content"
         rows={5}
