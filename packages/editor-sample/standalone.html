@@ -28,7 +28,7 @@
     <div id="root"></div>
     <script src="./dist/email-template-builder.umd.js"></script>
     <script>
-      EmailTemplateBuilder.init(document.getElementById('root'), {
+      const { render } = EmailTemplateBuilder.init(document.getElementById('root'), {
         name: 'New Email',
         id: 'aksjdh',
         onSave: (config) => {
@@ -44,6 +44,8 @@
           Date: ['today', 'now', 'tomorrow'],
         },
       });
+
+      // use render() to render the current html
     </script>
   </body>
 </html>

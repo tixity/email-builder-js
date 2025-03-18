@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import ReactDOM, { type Container } from 'react-dom/client';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
@@ -7,7 +7,8 @@ import App from './App';
 import theme from './theme';
 import { type TEditorConfiguration } from './documents/editor/core';
 import { VarProvider } from './App/useVarContext';
-import { renderToStaticMarkup } from '@usewaypoint/email-builder';
+import { renderToStaticMarkup, TReaderDocument } from '@usewaypoint/email-builder';
+import { render } from 'react-dom';
 
 export interface Config {
   config?: TEditorConfiguration;
@@ -18,23 +19,27 @@ export interface Config {
 }
 
 export const init = (element: Container, config: Config) => {
+  const ref = createRef<{ getConfig: () => TReaderDocument }>();
+
   ReactDOM.createRoot(element).render(
     <React.StrictMode>
       <VarProvider value={config.vars}>
         <ThemeProvider theme={theme}>
           <CssBaseline>
-            <App config={config} />
+            <App config={config} ref={ref} />
           </CssBaseline>
         </ThemeProvider>
       </VarProvider>
     </React.StrictMode>
   );
+
+  return {
+    render: () => (ref.current ? renderToStaticMarkup(ref.current.getConfig(), { rootBlockId: 'root' }) : null),
+  };
 };
 
-export { renderToStaticMarkup };
-
 if (import.meta.env.DEV) {
-  init(document.getElementById('root')!, {
+  const { render } = init(document.getElementById('root')!, {
     name: 'New Email',
     id: 'aksjdh',
     onSave: (config) => {
@@ -50,4 +55,7 @@ if (import.meta.env.DEV) {
       Date: ['today', 'now', 'tomorrow'],
     },
   });
+
+  // render a config via render
+  console.log(render());
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Stack, useTheme } from '@mui/material';
 
-import { resetDocument, useInspectorDrawerOpen } from '../documents/editor/EditorContext';
+import { resetDocument, useDocument, useInspectorDrawerOpen } from '../documents/editor/EditorContext';
 
 import { type Config } from '../main';
 import InspectorDrawer, { INSPECTOR_DRAWER_WIDTH } from './InspectorDrawer';
@@ -16,16 +16,26 @@ function useDrawerTransition(cssProperty: 'margin-left' | 'margin-right', open: 
   });
 }
 
-export default function App({ config }: { config: Config }) {
+export default React.forwardRef(function App({ config }: { config: Config }, ref) {
   const inspectorDrawerOpen = useInspectorDrawerOpen();
 
   const marginRightTransition = useDrawerTransition('margin-right', inspectorDrawerOpen);
+
+  const doc = useDocument();
 
   React.useEffect(() => {
     if (config.config) {
       resetDocument(config.config);
     }
   }, [config.config]);
+
+  React.useImperativeHandle(
+    ref,
+    () => ({
+      getConfig: () => doc,
+    }),
+    [doc]
+  );
 
   return (
     <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative' }}>
@@ -42,4 +52,4 @@ export default function App({ config }: { config: Config }) {
       </Stack>
     </div>
   );
-}
+});
