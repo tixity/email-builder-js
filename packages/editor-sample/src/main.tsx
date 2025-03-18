@@ -7,6 +7,7 @@ import App from './App';
 import theme from './theme';
 import { type TEditorConfiguration } from './documents/editor/core';
 import { VarProvider } from './App/useVarContext';
+import { renderToStaticMarkup } from '@usewaypoint/email-builder';
 
 export interface Config {
   config?: TEditorConfiguration;
@@ -29,6 +30,8 @@ export const init = (element: Container, config: Config) => {
     </React.StrictMode>
   );
 };
+
+export { renderToStaticMarkup };
 
 if (import.meta.env.DEV) {
   init(document.getElementById('root')!, {
