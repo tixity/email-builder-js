@@ -8,3 +8,14 @@ To build a dist package, run `npm run build:editor`. This will call `npm run bui
 To develop run `npm run dev`.
 
 Use `standalone.html` to test your changes with the bundled editor. For that either open it directly in a browser or run the devserver and visit `/standalone.html`
+
+# TLDR
+
+```bash
+git clone git@github.com:tixity/email-builder-js.git
+cd email-builder-js
+git checkout tixity-changes
+cd packages/editor-sample
+npm i
+npm run build
+```
