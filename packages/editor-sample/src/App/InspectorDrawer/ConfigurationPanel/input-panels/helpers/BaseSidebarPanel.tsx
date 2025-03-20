@@ -44,7 +44,7 @@ export default function BaseSidebarPanel({ title, children, showVars }: SidebarP
   );
 
   const insertText = useCallback((key: string) => {
-    key = `{${key}}`;
+    key = `{$${key}}`;
     if (currentFocus) {
       const newValue =
         currentFocus.value.slice(0, currentSelectionStart) + key + currentFocus.value.slice(currentSelectionEnd);
