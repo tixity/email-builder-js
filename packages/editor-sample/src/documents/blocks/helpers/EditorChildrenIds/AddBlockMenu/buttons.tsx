@@ -3,7 +3,6 @@ import React from 'react';
 import {
   AccountCircleOutlined,
   Crop32Outlined,
-  EmojiEvents,
   HMobiledataOutlined,
   HorizontalRuleOutlined,
   HtmlOutlined,
@@ -130,21 +129,21 @@ export const BUTTONS: TButtonProps[] = [
       },
     }),
   },
-  {
-    label: 'Templates',
-    icon: <EmojiEvents />,
-    block: () => ({
-      type: 'Templates',
-      data: {
-        props: { contents: 'Please Select' },
-        style: {
-          fontSize: 16,
-          textAlign: null,
-          padding: { top: 16, bottom: 16, left: 24, right: 24 },
-        },
-      },
-    }),
-  },
+  // {
+  //   label: 'Templates',
+  //   icon: <EmojiEvents />,
+  //   block: () => ({
+  //     type: 'Templates',
+  //     data: {
+  //       props: { contents: 'Please Select' },
+  //       style: {
+  //         fontSize: 16,
+  //         textAlign: null,
+  //         padding: { top: 16, bottom: 16, left: 24, right: 24 },
+  //       },
+  //     },
+  //   }),
+  // },
   {
     label: 'Columns',
     icon: <ViewColumnOutlined />,
