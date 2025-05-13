@@ -19,7 +19,6 @@ export default function TemplatesSidebarPanel({ data, setData }: TemplatesSideba
   const key = Object.keys(templates).find((key) => templates[key].html === data.props?.contents) ?? '__default__';
 
   const updateData = (d: unknown) => {
-    console.log(d);
     const res = TemplatesPropsSchema.safeParse(d);
     if (res.success) {
       setData(res.data);
