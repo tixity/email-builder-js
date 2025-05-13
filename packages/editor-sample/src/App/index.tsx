@@ -3,8 +3,8 @@ import React from 'react';
 import { Stack, useTheme } from '@mui/material';
 
 import { resetDocument, useDocument, useInspectorDrawerOpen } from '../documents/editor/EditorContext';
-
 import { type Config } from '../main';
+
 import InspectorDrawer, { INSPECTOR_DRAWER_WIDTH } from './InspectorDrawer';
 import TemplatePanel from './TemplatePanel';
 

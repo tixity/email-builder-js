@@ -16,6 +16,15 @@ type BlocksMenuProps = {
 export default function BlocksMenu({ anchorEl, setAnchorEl, onSelect }: BlocksMenuProps) {
   const events = useContext(EventsContext);
 
+  const buttons = [...BUTTONS];
+
+  if (Object.keys(events).length === 0) {
+    buttons.splice(
+      buttons.findIndex((b) => b.label === 'Templates'),
+      1
+    );
+  }
+
   const onClose = () => {
     setAnchorEl(null);
   };
@@ -38,8 +47,8 @@ export default function BlocksMenu({ anchorEl, setAnchorEl, onSelect }: BlocksMe
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
     >
       <Box sx={{ p: 1, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr' }}>
-        {BUTTONS.map((k, i) => (
-          <BlockButton key={i} label={k.label} icon={k.icon} onClick={() => onClick(k.block(events))} />
+        {buttons.map((k, i) => (
+          <BlockButton key={i} label={k.label} icon={k.icon} onClick={() => onClick(k.block())} />
         ))}
       </Box>
     </Menu>

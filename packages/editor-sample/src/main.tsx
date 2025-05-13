@@ -16,7 +16,7 @@ export interface Config {
   id: string;
   onSave: (config: { name: string; id: string; config: TEditorConfiguration }) => Promise<void> | void;
   vars?: Record<string, string[]>;
-  events?: string;
+  templates?: Record<string, { label: string; html: string }>;
 }
 
 export const init = (element: Container, config: Config) => {
@@ -25,7 +25,7 @@ export const init = (element: Container, config: Config) => {
   ReactDOM.createRoot(element).render(
     <React.StrictMode>
       <VarProvider value={config.vars}>
-        <EventsProvider value={config.events}>
+        <EventsProvider value={config.templates ?? {}}>
           <ThemeProvider theme={theme}>
             <CssBaseline>
               <App config={config} ref={ref} />
@@ -57,7 +57,12 @@ if (import.meta.env.DEV) {
       User: ['user_id', 'user_name', 'email'],
       Date: ['today', 'now', 'tomorrow'],
     },
-    events: '<div style="color: red">Thi sis nice</div>',
+    templates: {
+      events: {
+        html: '<div style="color: red">Thi sis nice</div>',
+        label: 'Upcoming Events',
+      },
+    },
   });
 
   // render a config via render

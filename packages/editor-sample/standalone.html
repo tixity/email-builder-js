@@ -43,10 +43,23 @@
           User: ['user_id', 'user_name', 'email'],
           Date: ['today', 'now', 'tomorrow'],
         },
-        events: '<div style="color: red">Some HTML test test</div>',
+        templates: {
+          events: {
+            label: 'Upcoming Events',
+            html: `<div>
+              <h1>Upcoming Events</h1>
+              <p>Check out our upcoming events!</p>
+              <ul>
+                <li>Event 1</li>
+                <li>Event 2</li>
+                <li>Event 3</li>
+              </ul>
+            </div>`,
+          }
+        }
       });
 
-      // use render() to render the current html
+      window.render = render; // expose render() to the global scope
     </script>
   </body>
 </html>

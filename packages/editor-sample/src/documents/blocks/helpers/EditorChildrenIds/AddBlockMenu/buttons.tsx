@@ -3,6 +3,7 @@ import React from 'react';
 import {
   AccountCircleOutlined,
   Crop32Outlined,
+  EmojiEvents,
   HMobiledataOutlined,
   HorizontalRuleOutlined,
   HtmlOutlined,
@@ -11,7 +12,6 @@ import {
   NotesOutlined,
   SmartButtonOutlined,
   ViewColumnOutlined,
-  EmojiEvents,
 } from '@mui/icons-material';
 
 import { TEditorBlock } from '../../../../editor/core';
@@ -19,7 +19,7 @@ import { TEditorBlock } from '../../../../editor/core';
 type TButtonProps = {
   label: string;
   icon: JSX.Element;
-  block: (events?: string) => TEditorBlock;
+  block: () => TEditorBlock;
 };
 export const BUTTONS: TButtonProps[] = [
   {
@@ -131,12 +131,12 @@ export const BUTTONS: TButtonProps[] = [
     }),
   },
   {
-    label: 'Upcoming Events',
+    label: 'Templates',
     icon: <EmojiEvents />,
-    block: (events) => ({
+    block: () => ({
       type: 'Events',
       data: {
-        props: { contents: events ?? 'No Events found' },
+        props: { contents: 'Please Select' },
         style: {
           fontSize: 16,
           textAlign: null,
