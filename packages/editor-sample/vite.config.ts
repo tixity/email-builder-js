@@ -1,3 +1,4 @@
+import path from 'path';
 import { defineConfig } from 'vite';
 
 import react from '@vitejs/plugin-react-swc';
@@ -7,6 +8,14 @@ export default defineConfig({
   define: {
     'process.env.NODE_ENV': JSON.stringify('production'),
   },
+  resolve: {
+    dedupe: ['react', 'react-dom'],
+    alias: {
+      // react: path.resolve(__dirname, 'node_modules/react'),
+      // 'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+      '@usewaypoint/email-builder': path.resolve(__dirname, './email-builder/src'),
+    },
+  },
   build: {
     lib: {
       entry: 'src/main.tsx',
@@ -14,6 +23,8 @@ export default defineConfig({
       fileName: (format) => `email-template-builder.${format}.js`,
       formats: ['umd'],
     },
+    // sourcemap: true,
+    // minify: false,
     rollupOptions: {
       // only externalize if we ever have other micro frontends
       // external: ['react', 'react-dom'],
@@ -23,14 +34,15 @@ export default defineConfig({
       //     'react-dom': 'ReactDOM',
       //   },
       // },
+
       treeshake: {
-        moduleSideEffects: (id, _external) => {
+        moduleSideEffects: (id) => {
           return !id.includes('/editor-sample/src/App/TemplatePanel/');
         },
       },
     },
   },
   optimizeDeps: {
-    exclude: ['@usewaypoint/email-builder', '@usewaypoint/block-html'],
+    include: ['@usewaypoint/email-builder', '@usewaypoint/block-html'],
   },
 });
