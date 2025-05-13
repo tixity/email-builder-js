@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Box, Menu } from '@mui/material';
 
+import { EventsContext } from '../../../../../App/useEventsContext';
 import { TEditorBlock } from '../../../../editor/core';
 
 import BlockButton from './BlockButton';
@@ -26,6 +27,8 @@ export default function BlocksMenu({ anchorEl, setAnchorEl, onSelect }: BlocksMe
     return null;
   }
 
+  const events = useContext(EventsContext);
+
   return (
     <Menu
       open
@@ -36,7 +39,7 @@ export default function BlocksMenu({ anchorEl, setAnchorEl, onSelect }: BlocksMe
     >
       <Box sx={{ p: 1, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr' }}>
         {BUTTONS.map((k, i) => (
-          <BlockButton key={i} label={k.label} icon={k.icon} onClick={() => onClick(k.block())} />
+          <BlockButton key={i} label={k.label} icon={k.icon} onClick={() => onClick(k.block(events))} />
         ))}
       </Box>
     </Menu>

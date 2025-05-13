@@ -30,4 +30,7 @@ export default defineConfig({
       },
     },
   },
+  optimizeDeps: {
+    exclude: ['@usewaypoint/email-builder', '@usewaypoint/block-html'],
+  },
 });

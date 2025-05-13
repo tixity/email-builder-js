@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { Avatar, AvatarPropsSchema } from '@usewaypoint/block-avatar';
 import { Button, ButtonPropsSchema } from '@usewaypoint/block-button';
 import { Divider, DividerPropsSchema } from '@usewaypoint/block-divider';
+import { Events, EventsPropsSchema } from '@usewaypoint/block-events';
 import { Heading, HeadingPropsSchema } from '@usewaypoint/block-heading';
 import { Html, HtmlPropsSchema } from '@usewaypoint/block-html';
 import { Image, ImagePropsSchema } from '@usewaypoint/block-image';
@@ -69,6 +70,14 @@ const EDITOR_DICTIONARY = buildBlockConfigurationDictionary({
     Component: (props) => (
       <EditorBlockWrapper>
         <Html {...props} />
+      </EditorBlockWrapper>
+    ),
+  },
+  Events: {
+    schema: EventsPropsSchema,
+    Component: (props) => (
+      <EditorBlockWrapper>
+        <Events {...props} />
       </EditorBlockWrapper>
     ),
   },

@@ -11,6 +11,7 @@ import {
   NotesOutlined,
   SmartButtonOutlined,
   ViewColumnOutlined,
+  EmojiEvents,
 } from '@mui/icons-material';
 
 import { TEditorBlock } from '../../../../editor/core';
@@ -18,7 +19,7 @@ import { TEditorBlock } from '../../../../editor/core';
 type TButtonProps = {
   label: string;
   icon: JSX.Element;
-  block: () => TEditorBlock;
+  block: (events?: string) => TEditorBlock;
 };
 export const BUTTONS: TButtonProps[] = [
   {
@@ -121,6 +122,21 @@ export const BUTTONS: TButtonProps[] = [
       type: 'Html',
       data: {
         props: { contents: '<strong>Hello world</strong>' },
+        style: {
+          fontSize: 16,
+          textAlign: null,
+          padding: { top: 16, bottom: 16, left: 24, right: 24 },
+        },
+      },
+    }),
+  },
+  {
+    label: 'Upcoming Events',
+    icon: <EmojiEvents />,
+    block: (events) => ({
+      type: 'Events',
+      data: {
+        props: { contents: events ?? 'No Events found' },
         style: {
           fontSize: 16,
           textAlign: null,

@@ -2,13 +2,13 @@ import React, { createRef } from 'react';
 import ReactDOM, { type Container } from 'react-dom/client';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
+import { renderToStaticMarkup, TReaderDocument } from '@usewaypoint/email-builder';
 
 import App from './App';
-import theme from './theme';
-import { type TEditorConfiguration } from './documents/editor/core';
+import { EventsProvider } from './App/useEventsContext';
 import { VarProvider } from './App/useVarContext';
-import { renderToStaticMarkup, TReaderDocument } from '@usewaypoint/email-builder';
-import { render } from 'react-dom';
+import { type TEditorConfiguration } from './documents/editor/core';
+import theme from './theme';
 
 export interface Config {
   config?: TEditorConfiguration;
@@ -16,6 +16,7 @@ export interface Config {
   id: string;
   onSave: (config: { name: string; id: string; config: TEditorConfiguration }) => Promise<void> | void;
   vars?: Record<string, string[]>;
+  events?: string;
 }
 
 export const init = (element: Container, config: Config) => {
@@ -24,11 +25,13 @@ export const init = (element: Container, config: Config) => {
   ReactDOM.createRoot(element).render(
     <React.StrictMode>
       <VarProvider value={config.vars}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline>
-            <App config={config} ref={ref} />
-          </CssBaseline>
-        </ThemeProvider>
+        <EventsProvider value={config.events}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline>
+              <App config={config} ref={ref} />
+            </CssBaseline>
+          </ThemeProvider>
+        </EventsProvider>
       </VarProvider>
     </React.StrictMode>
   );
@@ -54,6 +57,7 @@ if (import.meta.env.DEV) {
       User: ['user_id', 'user_name', 'email'],
       Date: ['today', 'now', 'tomorrow'],
     },
+    events: '<div style="color: red">Thi sis nice</div>',
   });
 
   // render a config via render
