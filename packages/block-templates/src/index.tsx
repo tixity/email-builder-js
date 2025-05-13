@@ -59,7 +59,7 @@ const PADDING_SCHEMA = z
 const getPadding = (padding: z.infer<typeof PADDING_SCHEMA>) =>
   padding ? `${padding.top}px ${padding.right}px ${padding.bottom}px ${padding.left}px` : undefined;
 
-export const EventsPropsSchema = z.object({
+export const TemplatesPropsSchema = z.object({
   style: z
     .object({
       color: COLOR_SCHEMA,
@@ -79,9 +79,9 @@ export const EventsPropsSchema = z.object({
     .nullable(),
 });
 
-export type HtmlProps = z.infer<typeof EventsPropsSchema>;
+export type TemplatesProps = z.infer<typeof TemplatesPropsSchema>;
 
-export function Events({ style, props }: HtmlProps) {
+export function Templates({ style, props }: TemplatesProps) {
   const children = props?.contents;
   const cssStyle: CSSProperties = {
     color: style?.color ?? undefined,

@@ -134,7 +134,7 @@ export const BUTTONS: TButtonProps[] = [
     label: 'Templates',
     icon: <EmojiEvents />,
     block: () => ({
-      type: 'Events',
+      type: 'Templates',
       data: {
         props: { contents: 'Please Select' },
         style: {

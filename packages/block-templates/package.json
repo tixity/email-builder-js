@@ -1,5 +1,5 @@
 {
-  "name": "@usewaypoint/block-events",
+  "name": "@usewaypoint/block-templates",
   "version": "0.0.3",
   "type": "module",
   "description": "@usewaypoint/document compatible HTML component",
@@ -17,7 +17,8 @@
     "dist"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p tsconfig.build.json"
   },
   "author": "carlos@usewaypoint.com",
   "license": "MIT",

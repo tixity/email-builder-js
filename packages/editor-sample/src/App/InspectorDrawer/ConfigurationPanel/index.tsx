@@ -11,11 +11,11 @@ import ColumnsContainerSidebarPanel from './input-panels/ColumnsContainerSidebar
 import ContainerSidebarPanel from './input-panels/ContainerSidebarPanel';
 import DividerSidebarPanel from './input-panels/DividerSidebarPanel';
 import EmailLayoutSidebarPanel from './input-panels/EmailLayoutSidebarPanel';
-import EventsSidebarPanel from './input-panels/EventsSidebarPanel';
 import HeadingSidebarPanel from './input-panels/HeadingSidebarPanel';
 import HtmlSidebarPanel from './input-panels/HtmlSidebarPanel';
 import ImageSidebarPanel from './input-panels/ImageSidebarPanel';
 import SpacerSidebarPanel from './input-panels/SpacerSidebarPanel';
+import TemplatesSidebarPanel from './input-panels/TemplatesSidebarPanel';
 import TextSidebarPanel from './input-panels/TextSidebarPanel';
 
 function renderMessage(val: string) {
@@ -57,8 +57,8 @@ export default function ConfigurationPanel() {
       return <HeadingSidebarPanel key={selectedBlockId} data={data} setData={(data) => setBlock({ type, data })} />;
     case 'Html':
       return <HtmlSidebarPanel key={selectedBlockId} data={data} setData={(data) => setBlock({ type, data })} />;
-    case 'Events':
-      return <EventsSidebarPanel key={selectedBlockId} data={data} setData={(data) => setBlock({ type, data })} />;
+    case 'Templates':
+      return <TemplatesSidebarPanel key={selectedBlockId} data={data} setData={(data) => setBlock({ type, data })} />;
     case 'Image':
       return <ImageSidebarPanel key={selectedBlockId} data={data} setData={(data) => setBlock({ type, data })} />;
     case 'EmailLayout':

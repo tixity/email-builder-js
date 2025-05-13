@@ -1,27 +1,26 @@
 import React, { useContext, useState } from 'react';
 
 import { MenuItem, Select } from '@mui/material';
-import { EventsPropsSchema } from '@usewaypoint/block-events';
-import { HtmlProps } from '@usewaypoint/block-html';
+import { TemplatesProps, TemplatesPropsSchema } from '@usewaypoint/block-templates';
 
-import { EventsContext } from '../../../useEventsContext';
+import { TemplatesContext } from '../../../useTemplatesContext';
 
 import BaseSidebarPanel from './helpers/BaseSidebarPanel';
 import MultiStylePropertyPanel from './helpers/style-inputs/MultiStylePropertyPanel';
 
-type HtmlSidebarPanelProps = {
-  data: HtmlProps;
-  setData: (v: HtmlProps) => void;
+type TemplatesSidebarPanelProps = {
+  data: TemplatesProps;
+  setData: (v: TemplatesProps) => void;
 };
-export default function HtmlSidebarPanel({ data, setData }: HtmlSidebarPanelProps) {
+export default function TemplatesSidebarPanel({ data, setData }: TemplatesSidebarPanelProps) {
   const [, setErrors] = useState<Zod.ZodError | null>(null);
-  const events = useContext(EventsContext);
+  const templates = useContext(TemplatesContext) ?? {};
 
-  const key = Object.keys(events).find((key) => events[key].html === data.props?.contents) ?? '__default__';
+  const key = Object.keys(templates).find((key) => templates[key].html === data.props?.contents) ?? '__default__';
 
   const updateData = (d: unknown) => {
     console.log(d);
-    const res = EventsPropsSchema.safeParse(d);
+    const res = TemplatesPropsSchema.safeParse(d);
     if (res.success) {
       setData(res.data);
       setErrors(null);
@@ -38,7 +37,7 @@ export default function HtmlSidebarPanel({ data, setData }: HtmlSidebarPanelProp
         onChange={(event) =>
           updateData({
             ...data,
-            props: { ...data.props, contents: events[event.target.value]?.html ?? 'Please Select' },
+            props: { ...data.props, contents: templates[event.target.value]?.html ?? 'Please Select' },
           })
         }
         fullWidth
@@ -47,9 +46,9 @@ export default function HtmlSidebarPanel({ data, setData }: HtmlSidebarPanelProp
         <MenuItem key="__default__" value="__default__">
           Please Select
         </MenuItem>
-        {Object.keys(events).map((key) => (
+        {Object.keys(templates).map((key) => (
           <MenuItem key={key} value={key}>
-            {events[key].label}
+            {templates[key].label}
           </MenuItem>
         ))}
       </Select>

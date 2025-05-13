@@ -43,6 +43,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['@usewaypoint/email-builder', '@usewaypoint/block-html'],
+    include: ['@usewaypoint/email-builder', '@usewaypoint/block-templates'],
   },
 });

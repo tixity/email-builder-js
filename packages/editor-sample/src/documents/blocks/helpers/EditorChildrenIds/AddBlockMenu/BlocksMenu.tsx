@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { Box, Menu } from '@mui/material';
 
-import { EventsContext } from '../../../../../App/useEventsContext';
+import { TemplatesContext } from '../../../../../App/useTemplatesContext';
 import { TEditorBlock } from '../../../../editor/core';
 
 import BlockButton from './BlockButton';
@@ -14,11 +14,11 @@ type BlocksMenuProps = {
   onSelect: (block: TEditorBlock) => void;
 };
 export default function BlocksMenu({ anchorEl, setAnchorEl, onSelect }: BlocksMenuProps) {
-  const events = useContext(EventsContext);
+  const templates = useContext(TemplatesContext) ?? {};
 
   const buttons = [...BUTTONS];
 
-  if (Object.keys(events).length === 0) {
+  if (Object.keys(templates).length === 0) {
     buttons.splice(
       buttons.findIndex((b) => b.label === 'Templates'),
       1

@@ -5,7 +5,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { renderToStaticMarkup, TReaderDocument } from '@usewaypoint/email-builder';
 
 import App from './App';
-import { EventsProvider } from './App/useEventsContext';
+import { TemplatesProvider } from './App/useTemplatesContext';
 import { VarProvider } from './App/useVarContext';
 import { type TEditorConfiguration } from './documents/editor/core';
 import theme from './theme';
@@ -25,13 +25,13 @@ export const init = (element: Container, config: Config) => {
   ReactDOM.createRoot(element).render(
     <React.StrictMode>
       <VarProvider value={config.vars}>
-        <EventsProvider value={config.templates ?? {}}>
+        <TemplatesProvider value={config.templates ?? {}}>
           <ThemeProvider theme={theme}>
             <CssBaseline>
               <App config={config} ref={ref} />
             </CssBaseline>
           </ThemeProvider>
-        </EventsProvider>
+        </TemplatesProvider>
       </VarProvider>
     </React.StrictMode>
   );
