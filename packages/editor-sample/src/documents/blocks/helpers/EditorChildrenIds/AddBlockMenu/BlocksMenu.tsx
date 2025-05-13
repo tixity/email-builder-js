@@ -14,6 +14,8 @@ type BlocksMenuProps = {
   onSelect: (block: TEditorBlock) => void;
 };
 export default function BlocksMenu({ anchorEl, setAnchorEl, onSelect }: BlocksMenuProps) {
+  const events = useContext(EventsContext);
+
   const onClose = () => {
     setAnchorEl(null);
   };
@@ -26,8 +28,6 @@ export default function BlocksMenu({ anchorEl, setAnchorEl, onSelect }: BlocksMe
   if (anchorEl === null) {
     return null;
   }
-
-  const events = useContext(EventsContext);
 
   return (
     <Menu
