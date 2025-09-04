@@ -89,7 +89,8 @@ export default function TemplatePanel({ config }: { config: Config }) {
       case 'html':
         return import.meta.env.DEV ? <HtmlPanel /> : null;
       case 'json':
-        return import.meta.env.DEV ? <JsonPanel /> : null;
+        return <JsonPanel />;
+      // return import.meta.env.DEV ? <JsonPanel /> : null;
     }
   };
 
@@ -175,13 +176,13 @@ export default function TemplatePanel({ config }: { config: Config }) {
                   </Tooltip>
                 </ToggleButton>
               )}
-              {import.meta.env.DEV && (
-                <ToggleButton value="json">
-                  <Tooltip title="JSON output">
-                    <DataObjectOutlined fontSize="small" />
-                  </Tooltip>
-                </ToggleButton>
-              )}
+              {/* {import.meta.env.DEV && ( */}
+              <ToggleButton value="json">
+                <Tooltip title="JSON output">
+                  <DataObjectOutlined fontSize="small" />
+                </Tooltip>
+              </ToggleButton>
+              {/* )} */}
             </ToggleButtonGroup>
             <DownloadJson />
             <ImportJson />

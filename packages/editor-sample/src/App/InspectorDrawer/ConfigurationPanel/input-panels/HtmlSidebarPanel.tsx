@@ -24,7 +24,8 @@ export default function HtmlSidebarPanel({ data, setData }: HtmlSidebarPanelProp
         setData(res.data);
         setErrors(null);
       } else {
-        setErrors(res.error);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setErrors(res.error as any);
       }
     },
     [setData]
@@ -72,7 +73,7 @@ export default function HtmlSidebarPanel({ data, setData }: HtmlSidebarPanelProp
             </Select>
           </FormControl>
           <Button variant="contained" onClick={handleTemplateInsert}>
-            Insert
+            Use
           </Button>
         </Stack>
       )}
