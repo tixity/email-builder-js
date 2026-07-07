@@ -134,13 +134,14 @@ export default function TemplatePanel({ config }: { config: Config }) {
             value={name}
             onChange={(e) => setName(e.currentTarget.value)}
             variant="outlined"
+            sx={{ minWidth: 320 }}
             inputProps={{ style: { paddingBlock: 4, fontSize: 16 } }}
           />
         </Stack>
         <Stack px={2} direction="row" gap={2} width="100%" justifyContent="space-between" alignItems="center">
           <Stack direction="row">
             <Tooltip title="Save">
-              <IconButton onClick={handleSave}>
+              <IconButton onClick={handleSave} data-testid="email-builder-save">
                 <SaveOutlined />
               </IconButton>
             </Tooltip>
